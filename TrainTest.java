@@ -49,6 +49,9 @@ public class TrainTest
 	t2 = new Train(false, c2, 1, "Equal");
 	if(t1.lessThan(t2)) return false;
 	if(!t2.lessThan(t1)) return false;
+
+	System.out.println(t1);
+	System.out.println(t2);
        
 	return true;
     }
