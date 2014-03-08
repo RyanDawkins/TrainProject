@@ -1,0 +1,7 @@
+Arrival Mar 21, 2014 10:30 38472 Super Express
+arrival Mar 20, 2014 7:20 40003 City of New Orleans
+departure Mar 21, 2014 09:45 643 Silver
+cancel 1642
+arrival Mar 21, 2014 18:30 8123 Rolling Thunder
+Cancel 40003
+ARRIVAL Mar 20, 2014 10:45 738 St. Louis Final

@@ -15,29 +15,52 @@ public class LinkedList
     public LinkedList add(Train t)
     {
 	ListNode l = new ListNode(t);
-	if(head == null)
+	if(this.head == null)
 	    {
 		this.head = l;
 		this.current = l;
 		this.count = 1;
 	    }
+	else if(l.lessThan(this.head))
+	    {
+		this.head.setPrevious(l);
+		l.setNext(this.head);
+		this.head = l;
+		this.current = l;
+	    }
+	else if(!this.head.hasNext())
+	    {
+		this.head.setNext(l);
+		l.setPrevious(this.head);
+	    }
 	else
 	    {
-		ListNode highest = this.head;
-		while(highest.lessThan(l) && highest.hasNext())
+		ListNode c = this.head.getNext();
+		while(c.hasNext() && c.lessThan(l))
 		    {
-			highest = highest.getNext();
+			c = c.getNext();
 		    }
-		if(highest.hasPrevious())
+		if(l.lessThan(c))
 		    {
-			ListNode previous = highest.getPrevious();
-			previous.setNext(l);
-			highest.setPrevious(l);
+			c.getPrevious().setNext(l);
+			l.setPrevious(c.getPrevious());
+			l.setNext(c);
+			c.setPrevious(l);
 		    }
 		else
 		    {
-			highest.setPrevious(l);
-			l.setNext(highest);
+			if(c.hasNext())
+			    {
+				c.getNext().setPrevious(l);
+				l.setNext(c.getNext());
+				l.setPrevious(c);
+				c.setNext(l);
+			    }
+			else
+			    {
+				c.setNext(l);
+				l.setPrevious(c);
+			    }
 		    }
 	    }
 	return this;
@@ -45,27 +68,38 @@ public class LinkedList
 
     public Train delete(int trainNumber)
     {
-	ListNode toDelete = new ListNode(delete(trainNumber, this.head));
-	ListNode previous = toDelete.getPrevious();
-	if(toDelete.hasNext())
+	ListNode toDelete = delete(trainNumber, this.head);
+	if(toDelete == null)
 	    {
-		ListNode next = toDelete.getNext();
-		previous.setNext(next);
-		next.setPrevious(previous);
+		return null;
+	    }
+
+	if(!toDelete.hasPrevious())
+	    {
+		if(toDelete.hasNext())
+		    {
+			this.head = toDelete.getNext();
+			this.head.setPrevious(null);
+			this.current = this.head;
+		    }
 	    }
 	else
 	    {
-		previous.setNext(null);
+		toDelete.getPrevious().setNext(toDelete.getNext());
+		if(toDelete.hasNext())
+		    {
+			toDelete.getNext().setPrevious(toDelete.getPrevious());
+		    }
 	    }
 	this.count--;
 	return toDelete.getTrain();
     }
 
-    public Train delete(int trainNumber, ListNode l)
+    public ListNode delete(int trainNumber, ListNode l)
     {
 	if(l.getTrain().getTrainNumber() == trainNumber)
 	    {
-		return l.getTrain();
+		return l;
 	    }
 	else if(l.hasNext())
 	    {

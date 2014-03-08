@@ -26,8 +26,8 @@ public class Train
 
     public boolean lessThan(Train t)
     {
-	if(this.hasArrived() && !t.hasArrived()){ return false; }
-	else if(!this.hasArrived() && t.hasArrived()){ return true; }
+	if(this.hasArrived() && !t.hasArrived()){ return true; }
+	else if(!this.hasArrived() && t.hasArrived()){ return false; }
 
 	if(this.getDate().compareTo(t.getDate()) < 0){ return true; }
 	else if(this.getDate().compareTo(t.getDate()) > 0){ return false; }
@@ -40,8 +40,8 @@ public class Train
 
     public boolean greaterThan(Train t)
     {
-	if(this.hasArrived() && !t.hasArrived()){ return true; }
-	else if(!this.hasArrived() && t.hasArrived()){ return false; }
+	if(this.hasArrived() && !t.hasArrived()){ return false; }
+	else if(!this.hasArrived() && t.hasArrived()){ return true; }
 
 	if(this.getDate().compareTo(t.getDate()) < 0){ return false; }
 	else if(this.getDate().compareTo(t.getDate()) > 0){ return true; }
